@@ -1,0 +1,145 @@
+@import "vars";
+@import "mixins";
+// @붙이면 가져올수 있다. (import할때는 제목의 언더바를 붙이지 않는다)
+
+body {
+  font-family: "Roboto", "Noto Sans KR", "돋움";
+  color: #111;
+  font-size: 16px;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+//이미지는 글자처럼 처리된다.
+img {
+  vertical-align: top;
+  //이걸쓰면 이미지 위로 붙여 준다. 안쓰면 이미가 살짝 벌어짐
+}
+
+button {
+  background: none;
+  border: none;
+  outline: none;
+}
+
+.container {
+  width: 1400px;
+  margin: 0 auto;
+}
+
+#header {
+  background-color: white;
+  height: 100px; //높이 지정하지 않으면 같이 배경이 내려간다.
+  position: absolute;
+  //absolute주면 넓이가 작아짐. 최소로 줄어들기 때문. 그에 width: 100%를 넣어야 한다.
+  width: 100%;
+  z-index: 99;
+  .container {
+    width: 1780px;
+    display: flex;
+    justify-content: center;
+    position: relative;
+  }
+}
+
+#logo {
+  position: absolute;
+  left: 0;
+  a {
+    height: 100px;
+    display: flex;
+    align-items: center;
+  }
+}
+.util {
+  position: absolute;
+  right: 0;
+  ul {
+    display: flex;
+    height: 100px;
+    align-items: center;
+    li {
+      &:nth-child(4) a {
+        //다 적용하는게 아닌 몇번째에만 적용할때 이렇게 쓴다. 앞에서 부터 접근!
+        //nth-last-child(1)은 뒤에서 부터 접근하는 것으로, 항상 마지막을 가르킨다.
+        border: 1px solid $main-color;
+        padding: 15px 20px;
+      }
+      a {
+        text-transform: uppercase;
+        font-size: 18px;
+        padding: 14px;
+        font-weight: 500;
+
+        //li가 아닌 a 에 padding을 주면 a주위까지 영향을 준다. 그에 클릭을 할시 a주변까지 클릭가능! li에만 주면 a의 영역에 영향을 주는게 아님. a를 벗어나는 즉시 클릭 안된다.
+        i {
+          font-size: 24px;
+        }
+      }
+    }
+  }
+}
+#gnb {
+  .list {
+    display: flex;
+    > li {
+      &:hover {
+        .depth02 {
+          display: block;
+        }
+        .depth01 {
+          background-color: $main-color;
+          color: white;
+          &:after {
+            transform: scaleX(1);
+          }
+        }
+      }
+      .depth01 {
+        height: 100px;
+        display: flex;
+        align-items: center;
+        font-size: $h4;
+        font-weight: 500;
+        padding: 0 40px; //width는 잘 안준다.
+        position: relative;
+        &:after {
+          content: "";
+          display: block;
+          height: 2px;
+          background-color: lighten($main-color, 20);
+          position: absolute;
+          bottom: 0;
+          left: 30px;
+          right: 30px; //width를 쓰지 않고 좌우 px를 줘서 조정한다.
+          transform: scaleX(0);
+          transition: all 0.25s ease;
+        }
+      }
+      .depth02 {
+        text-align: center;
+        background-color: $main-color;
+        color: white;
+        padding: 30px 10px;
+        display: none;
+        border-radius: 0 0 20px 20px;
+
+        li {
+          &:hover {
+            a {
+              background-color: darken($main-color, 10);
+            }
+          }
+          a {
+            display: block;
+            padding: 10px 0;
+            border-radius: 3px;
+          }
+        }
+      }
+    }
+  }
+}
